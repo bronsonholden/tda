@@ -1,0 +1,32 @@
+IF(MSVC)
+	SET(PLATFORM_NAME "windows")
+ELSE()
+	MESSAGE(FATAL "Unsupported platform")
+ENDIF(MSVC)
+
+FILE(
+	GLOB
+	HID_SOURCE_FILES
+	platforms/${PLATFORM_NAME}.c
+	*.c
+	)
+
+FILE(
+	GLOB
+	HID_HEADER_FILES
+	${TDA_INCLUDE_DIR}/tda/hid/*.h
+	${TDA_INCLUDE_DIR}/tda/hid.h
+	)
+
+ADD_LIBRARY(
+	TDA_hid
+	${HID_HEADER_FILES}
+	${HID_SOURCE_FILES}
+	)
+
+IF(MSVC)
+	TARGET_LINK_LIBRARIES(
+		TDA_hid
+		opengl32
+		)
+ENDIF(MSVC)

@@ -1,0 +1,19 @@
+FILE(
+	GLOB
+	MM_HEADER_FILES
+	${TDA_INCLUDE_DIR}/tda/mm/*.h
+	${TDA_INCLUDE_DIR}/tda/mm.h
+	*.h
+	)
+
+FILE(
+	GLOB
+	MM_SOURCE_FILES
+	*.c
+	)
+
+ADD_LIBRARY(
+	TDA_mm
+	${MM_HEADER_FILES}
+	${MM_SOURCE_FILES}
+)
