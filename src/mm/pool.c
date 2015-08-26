@@ -86,10 +86,10 @@ void *pool_malloc(size_t sz)
 	int i;
 
 	for (i = 0; i < num_sectors; ++i) {
-		if (!sectors[i])
+		if (!sectors[i] || sectors[i]->block_size < sz)
 			continue;
 
-		if (sectors[i]->block_size > sz) {
+		if (sectors[i]->front) {
 			ptr = sectors[i]->front;
 
 			sectors[i]->front = *(void **)sectors[i]->front;
