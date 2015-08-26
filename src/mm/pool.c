@@ -116,7 +116,24 @@ void *pool_calloc(size_t num, size_t sz)
 
 void *pool_realloc(void *ptr, size_t sz)
 {
-	return 0;
+	void *newptr;
+
+	if (!ptr && sz)
+		return pool_malloc(sz);
+
+	if (ptr && !sz) {
+		pool_free(ptr);
+
+		return 0;
+	}
+
+	newptr = pool_malloc(sz);
+	if (!newptr)
+		return 0;
+
+	pool_free(ptr);
+
+	return newptr;
 }
 
 void pool_free(void *ptr)
