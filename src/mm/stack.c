@@ -64,10 +64,32 @@ void *stack_calloc(size_t num, size_t sz)
 
 void *stack_realloc(void *ptr, size_t sz)
 {
-	if (stack_malloc(sz))
-		return ptr;
-	else
+	size_t tmp;
+
+	if (!ptr && sz)
+		return stack_malloc(sz);
+
+	if (ptr && !sz) {
+		stack_free(ptr);
+
 		return 0;
+	}
+
+	if (ptr > stack_marker)
+		return 0;
+
+	tmp = (size_t)((ptrdiff_t)stack_marker - (ptrdiff_t)ptr);
+
+	if (sz > tmp) {
+		/* Request extra bytes to realloc to a larger size */
+		if (!stack_malloc(sz - tmp))
+			return 0;
+	} else {
+		/* Roll back stack marker to realloc to a smaller size */
+		stack_marker = (void *)((ptrdiff_t)stack_marker + (ptrdiff_t)sz);
+	}
+
+	return ptr;
 }
 
 void stack_free(void *ptr)
