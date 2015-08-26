@@ -82,7 +82,6 @@ int pool_deinit(void)
 
 void *pool_malloc(size_t sz)
 {
-	struct pool_sector *sec = 0;
 	void *ptr;
 	int i;
 
