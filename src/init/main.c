@@ -11,6 +11,9 @@ int main(int argc, char *argv[])
 	if (!mm_init(argc, argv))
 		return 1;
 
+	if (!hid_init(argc, argv))
+		return 1;
+
 	hid = hid_create(0);
 	if (!hid)
 		printf("hid_create() failed\n");
@@ -25,6 +28,7 @@ int main(int argc, char *argv[])
 
 	hid_destroy(hid);
 
+	hid_deinit();
 	mm_deinit();
 
 	return 0;

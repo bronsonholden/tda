@@ -62,6 +62,8 @@ static ATOM window_class;
 
 static int keymap[0xFF];
 
+static int is_init;
+
 static const struct hid_format default_format = {
 	.default_width = 800,
 	.default_height = 600,
@@ -72,6 +74,28 @@ static const struct hid_format default_format = {
 	.depth_bits = 24,
 	.stencil_bits = 8
 	};
+
+int hid_init(int argc, const char *argv[])
+{
+	if (!create_window_class())
+		return 0;
+
+	is_init = 1;
+
+	return 1;
+}
+
+void hid_deinit(void)
+{
+	destroy_window_class();
+
+	is_init = 0;
+}
+
+int hid_is_init(void)
+{
+	return is_init;
+}
 
 hid_t *hid_create(const struct hid_format *fmt)
 {
@@ -336,7 +360,7 @@ int create_window(hid_t *hid, const struct hid_format *fmt)
 {
 	HWND wnd;
 
-	if (!window_class && !create_window_class())
+	if (!is_init)
 		return 0;
 
 	wnd = CreateWindowEx(

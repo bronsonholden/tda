@@ -76,6 +76,12 @@ struct hid_io
 	};
 };
 
+int hid_init(int argc, const char *argv[]);
+
+void hid_deinit(void);
+
+int hid_is_init(void);
+
 /* Allocates and initializes a HID with the requested format. If
  * any error occurs, zero is returned. The returned pointer can be
  * passed to hid_destroy() to do clean-up and deallocation of memory.
