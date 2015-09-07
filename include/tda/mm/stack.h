@@ -10,9 +10,11 @@ struct stack_allocator
 	size_t   size;
 };
 
-int stack_init(void);
+int stack_init(int argc, const char *argv[]);
 
-int stack_deinit(void);
+void stack_deinit(void);
+
+int stack_is_init(void);
 
 void *stack_malloc(size_t sz);
 

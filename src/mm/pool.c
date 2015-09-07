@@ -42,7 +42,9 @@ static void check_free_chain(struct pool_sector *sec);
 static struct pool_sector **sectors;
 static int                  num_sectors;
 
-int pool_init(void)
+static int is_init;
+
+int pool_init(int argc, const char *argv[])
 {
 	int i;
 
@@ -58,15 +60,17 @@ int pool_init(void)
 			pool_deinit();
 	}
 
+	is_init = 1;
+
 	return 1;
 }
 
-int pool_deinit(void)
+void pool_deinit(void)
 {
 	int i;
 
 	if (!sectors)
-		return 0;
+		return;
 
 	for (i = 0; i < num_sectors; ++i) {
 		if (sectors[i]) {
@@ -77,7 +81,12 @@ int pool_deinit(void)
 
 	stack_free(sectors);
 
-	return 1;
+	is_init = 0;
+}
+
+int pool_is_init(void)
+{
+	return is_init;
 }
 
 void *pool_malloc(size_t sz)

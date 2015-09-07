@@ -1,12 +1,16 @@
 #include <malloc.h>
 #include <tda/mm/heap.h>
 
-int heap_init(void)
+int heap_init(int argc, const char *argv[])
 {
 	return 1;
 }
 
-int heap_deinit(void)
+void heap_deinit(void)
+{
+}
+
+int heap_is_init(void)
 {
 	return 1;
 }

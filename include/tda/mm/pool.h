@@ -3,9 +3,11 @@
 
 #include <stddef.h>
 
-int pool_init(void);
+int pool_init(int argc, const char *argv[]);
 
-int pool_deinit(void);
+void pool_deinit(void);
+
+int pool_is_init(void);
 
 void *pool_malloc(size_t sz);
 

@@ -5,8 +5,10 @@
 #include <tda/mm/pool.h>
 #include <tda/mm/stack.h>
 
-int mm_init(void);
+int mm_init(int argc, const char *argv[]);
 
-int mm_deinit(void);
+void mm_deinit(void);
+
+int mm_is_init(void);
 
 #endif /* TDA_MM_H */

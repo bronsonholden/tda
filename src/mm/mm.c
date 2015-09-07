@@ -1,24 +1,42 @@
 #include <tda/mm.h>
 
-int mm_init(void)
+static int is_init;
+
+int mm_init(int argc, const char *argv[])
 {
-	if (!heap_init())
-		return 0;
+	if (!heap_init(argc, argv))
+		goto err;
 
-	if (!stack_init())
-		return 0;
+	if (!stack_init(argc, argv))
+		goto err;
 
-	if (!pool_init())
-		return 0;
+	if (!pool_init(argc, argv))
+		goto err;
+
+	is_init = 1;
 
 	return 1;
+err:
+	mm_deinit();
+
+	return 0;
 }
 
-int mm_deinit(void)
+void mm_deinit(void)
 {
-	pool_deinit();
-	stack_deinit();
-	heap_deinit();
+	if (pool_is_init())
+		pool_deinit();
 
-	return 1;
+	if (stack_is_init())
+		stack_deinit();
+
+	if (heap_is_init())
+		heap_deinit();
+
+	is_init = 0;
+}
+
+int mm_is_init(void)
+{
+	return is_init;
 }

@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 	hid_t *hid;
 	struct hid_io io;
 
-	if (!mm_init())
+	if (!mm_init(argc, argv))
 		return 1;
 
 	hid = hid_create(0);

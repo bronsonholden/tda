@@ -9,7 +9,9 @@ static void    *stack_marker;
 static size_t   stack_size;
 static size_t   stack_usage;
 
-int stack_init(void)
+static int is_init;
+
+int stack_init(int argc, const char *argv[])
 {
 	stack_buffer = heap_malloc(DEFAULT_STACK_SIZE);
 	if (!stack_buffer)
@@ -19,14 +21,21 @@ int stack_init(void)
 	stack_size    = DEFAULT_STACK_SIZE;
 	stack_marker  = stack_buffer;
 
+	is_init = 1;
+
 	return 1;
 }
 
-int stack_deinit(void)
+void stack_deinit(void)
 {
 	heap_free(stack_buffer);
 
-	return 1;
+	is_init = 0;
+}
+
+int stack_is_init(void)
+{
+	return is_init;
 }
 
 void *stack_malloc(size_t sz)
