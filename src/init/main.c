@@ -2,6 +2,7 @@
 #include <string.h>
 #include <tda/mm.h>
 #include <tda/hid.h>
+#include <tda/math.h>
 
 int main(int argc, char *argv[])
 {

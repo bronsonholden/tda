@@ -1,0 +1,19 @@
+FILE(
+	GLOB
+	MATH_HEADER_FILES
+	${TDA_INCLUDE_DIR}/tda/math/*.h
+	${TDA_INCLUDE_DIR}/tda/math.h
+	*.h
+	)
+
+FILE(
+	GLOB
+	MATH_SOURCE_FILES
+	*.c
+	)
+
+ADD_LIBRARY(
+	TDA_math
+	${MATH_HEADER_FILES}
+	${MATH_SOURCE_FILES}
+)
