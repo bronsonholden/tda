@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <tda/fs.h>
 #include <tda/mm.h>
 #include <tda/hid.h>
 
@@ -12,6 +13,9 @@ int main(int argc, char *argv[])
 		return 1;
 
 	if (!hid_init(argc, argv))
+		return 1;
+
+	if (!fs_init(argc, argv))
 		return 1;
 
 	hid = hid_create(0);
@@ -28,6 +32,7 @@ int main(int argc, char *argv[])
 
 	hid_destroy(hid);
 
+	fs_deinit();
 	hid_deinit();
 	mm_deinit();
 
