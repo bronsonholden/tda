@@ -8,9 +8,11 @@ int fs_init(int argc, const char *argv[])
 	if (!PHYSFS_init(argv[0]))
 		return 0;
 
-	PHYSFS_addToSearchPath(PHYSFS_getUserDir(), 0);
+	if (!PHYSFS_mount(PHYSFS_getUserDir(), 0, 0))
+		return 0;
 
-	PHYSFS_setWriteDir(PHYSFS_getUserDir());
+	if (!PHYSFS_setWriteDir(PHYSFS_getRealDir("/")))
+		return 0;
 
 	is_init = 1;
 
