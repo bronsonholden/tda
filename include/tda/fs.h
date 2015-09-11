@@ -2,6 +2,7 @@
 #define TDA_FS_H
 
 #include <tda/fs/file.h>
+#include <tda/fs/vfs.h>
 
 int fs_init(int argc, const char *argv[]);
 
