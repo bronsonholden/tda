@@ -1,16 +1,6 @@
 #include <math.h>
 #include <tda/math/fvec3.h>
 
-void fvec3_cpy(
-	struct fvec3 *dest,
-	const struct fvec3 *src
-	)
-{
-	dest->x = src->x;
-	dest->y = src->y;
-	dest->z = src->z;
-}
-
 float fvec3_dist(const struct fvec3 *a, const struct fvec3 *b)
 {
 	float tmp, dist = 0;

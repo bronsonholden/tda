@@ -8,6 +8,13 @@
 		(v)->z = c; \
 	} while (0);
 
+#define fvec3_cpy(dest, src) \
+	do { \
+		(dest)->x = (src)->x; \
+		(dest)->y = (src)->y; \
+		(dest)->z = (src)->z; \
+	} while (0);
+
 #define fvec3_zero(v) fvec3_set(v, 0, 0, 0)
 
 struct fvec3
@@ -16,8 +23,6 @@ struct fvec3
 	float y;
 	float z;
 };
-
-void fvec3_cpy(struct fvec3 *dest, const struct fvec3 *src);
 
 float fvec3_dist(const struct fvec3 *a, const struct fvec3 *b);
 

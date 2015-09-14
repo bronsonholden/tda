@@ -7,6 +7,12 @@
 		(v)->y = b; \
 	} while (0);
 
+#define fvec2_cpy(dest, src) \
+	do { \
+		(dest)->x = (src)->x; \
+		(dest)->y = (src)->y; \
+	} while (0);
+
 #define fvec2_zero(v) fvec2_set(v, 0, 0)
 
 struct fvec2
@@ -14,8 +20,6 @@ struct fvec2
 	float x;
 	float y;
 };
-
-void fvec2_cpy(struct fvec2 *dest, const struct fvec2 *src);
 
 float fvec2_len(const struct fvec2 *v);
 

@@ -4,15 +4,6 @@
 #define abs(a) ((a) < 0 ? -(a) : (a))
 #define feq(a, b) (abs((a) - (b)) < 0.000001f)
 
-void fvec2_cpy(
-	struct fvec2 *dest,
-	const struct fvec2 *src
-	)
-{
-	dest->x = src->x;
-	dest->y = src->y;
-}
-
 float fvec2_len(const struct fvec2 *v)
 {
 	return sqrtf(v->x * v->x + v->y * v->y);
