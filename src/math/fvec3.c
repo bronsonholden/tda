@@ -47,10 +47,7 @@ void fvec3_crs(
 	fvec3_cpy(dv, &tmp);
 }
 
-float fvec3_dot(
-	const struct fvec3 *lv,
-	const struct fvec3 *rv
-	)
+float fvec3_dot(const struct fvec3 *lv, const struct fvec3 *rv)
 {
 	return lv->x * rv->x + lv->y * rv->y + lv->z * rv->z;
 }
