@@ -60,45 +60,15 @@ void fmat4_lookat(
 	struct fvec3 fwd;
 	struct fvec3 side;
 	struct fvec3 upv;
-	float len;
 
-	fwd.x = tar->x - pos->x;
-	fwd.y = tar->y - pos->y;
-	fwd.z = tar->z - pos->z;
-
-	len = fvec3_len(&fwd);
-	if (fabsf(len) < 0.00001f)
-		len = 1.0f;
-	else
-		len = 1.0f / len;
-
-	fwd.x *= len;
-	fwd.y *= len;
-	fwd.z *= len;
+	fvec3_sub(&fwd, tar, up);
+	fvec3_nrm(&fwd, &fwd);
 
 	fvec3_crs(&side, &fwd, up);
-
-	len = fvec3_len(&side);
-	if (fabsf(len) < 0.00001f)
-		len = 1.0f;
-	else
-		len = 1.0f / len;
-
-	side.x *= len;
-	side.y *= len;
-	side.z *= len;
+	fvec3_nrm(&side, &side);
 
 	fvec3_crs(&upv, &side, &fwd);
-
-	len = fvec3_len(&upv);
-	if (fabsf(len) < 0.00001f)
-		len = 1.0f;
-	else
-		len = 1.0f / len;
-
-	upv.x *= len;
-	upv.y *= len;
-	upv.z *= len;
+	fvec3_nrm(&upv, &upv);
 
 	m->a[0] = side.x;
 	m->a[1] = upv.x;
