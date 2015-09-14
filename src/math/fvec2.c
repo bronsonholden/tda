@@ -14,10 +14,7 @@ float fvec2_len2(const struct fvec2 *v)
 	return v->x * v->x + v->y * v->y;
 }
 
-float fvec2_crs(
-	const struct fvec2 *lv,
-	const struct fvec2 *rv
-	)
+float fvec2_crs(const struct fvec2 *lv, const struct fvec2 *rv)
 {
 	return lv->x * rv->y - lv->y * rv->x;
 }
