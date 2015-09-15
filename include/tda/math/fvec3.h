@@ -28,7 +28,7 @@ float fvec3_dist(const struct fvec3 *a, const struct fvec3 *b);
 
 float fvec3_len(const struct fvec3 *v);
 
-void fvec3_nrm(struct fvec3 *v);
+void fvec3_nrm(struct fvec3 *dest, const struct fvec3 *src);
 
 float fvec3_dot(const struct fvec3 *lv, const struct fvec3 *rv);
 

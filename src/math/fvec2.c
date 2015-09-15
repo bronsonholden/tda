@@ -25,17 +25,17 @@ float fvec2_dot(
 	return lv->x * rv->x + lv->y * rv->y;
 }
 
-void fvec2_nrm(struct fvec2 *v)
+void fvec2_nrm(struct fvec2 *dest, const struct fvec2 *src)
 {
-	float len = fvec2_len(v);
+	float len = fvec2_len(src);
 
 	if (feq(len, 0.0f))
 		return;
 	else
 		len = 1.0f / len;
 
-	v->x *= len;
-	v->y *= len;
+	dest->x *= len;
+	dest->y *= len;
 }
 
 void fvec2_add(

@@ -42,18 +42,18 @@ float fvec3_dot(const struct fvec3 *lv, const struct fvec3 *rv)
 	return lv->x * rv->x + lv->y * rv->y + lv->z * rv->z;
 }
 
-void fvec3_nrm(struct fvec3 *v)
+void fvec3_nrm(struct fvec3 *dest, const struct fvec3 *src)
 {
-	float len = fvec3_len(v);
+	float len = fvec3_len(src);
 
 	if (len < 0.00001f && len > -0.00001f)
 		return;
 	else
 		len = 1.0f / len;
 
-	v->x *= len;
-	v->y *= len;
-	v->z *= len;
+	dest->x *= len;
+	dest->y *= len;
+	dest->z *= len;
 }
 
 void fvec3_add(

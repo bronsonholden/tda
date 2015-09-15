@@ -27,7 +27,7 @@ float fvec2_crs(const struct fvec2 *lv, const struct fvec2 *rv);
 
 float fvec2_dot(const struct fvec2 *lv, const struct fvec2 *rv);
 
-void fvec2_nrm(struct fvec2 *v);
+void fvec2_nrm(struct fvec2 *dest, const struct fvec2 *src);
 
 void fvec2_add(
 	struct fvec2 *dv,
