@@ -6,7 +6,12 @@
 
 float fvec2_len(const struct fvec2 *v)
 {
-	return sqrtf(v->x * v->x + v->y * v->y);
+	return sqrtf(fvec2_len2(v));
+}
+
+float fvec2_len2(const struct fvec2 *v)
+{
+	return v->x * v->x + v->y * v->y;
 }
 
 float fvec2_crs(

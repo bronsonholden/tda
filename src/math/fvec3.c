@@ -19,7 +19,12 @@ float fvec3_dist(const struct fvec3 *a, const struct fvec3 *b)
 
 float fvec3_len(const struct fvec3 *v)
 {
-	return sqrtf(v->x * v->x + v->y * v->y + v->z * v->z);
+	return sqrtf(fvec3_len2(v));
+}
+
+float fvec3_len2(const struct fvec3 *v)
+{
+	return v->x * v->x + v->y * v->y + v->z * v->z;
 }
 
 void fvec3_crs(

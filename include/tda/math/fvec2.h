@@ -23,6 +23,8 @@ struct fvec2
 
 float fvec2_len(const struct fvec2 *v);
 
+float fvec2_len2(const struct fvec2 *v);
+
 float fvec2_crs(const struct fvec2 *lv, const struct fvec2 *rv);
 
 float fvec2_dot(const struct fvec2 *lv, const struct fvec2 *rv);
