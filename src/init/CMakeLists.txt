@@ -1,6 +1,7 @@
 FILE(
 	GLOB
 	TDA_HEADER_FILES
+	${TDA_INCLUDE_DIR}/*.h
 	*.h
 	)
 
