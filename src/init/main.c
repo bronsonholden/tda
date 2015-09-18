@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 #include <tda/fs.h>
 #include <tda/mm.h>
 #include <tda/hid.h>
