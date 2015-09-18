@@ -2,6 +2,8 @@
 #include <tda/mm/heap.h>
 #include <tda/mm/stack.h>
 
+#define ENABLE_STACK_LOG 1
+
 #define DEFAULT_STACK_SIZE (1 << 28)
 
 static void    *stack_buffer;
@@ -17,6 +19,9 @@ int stack_init(int argc, const char *argv[])
 	if (!stack_buffer)
 		return 0;
 
+	if (ENABLE_STACK_LOG)
+		printf("stack: %dMB allocated\n", DEFAULT_STACK_SIZE >> 20);
+
 	stack_usage   = 0;
 	stack_size    = DEFAULT_STACK_SIZE;
 	stack_marker  = stack_buffer;
@@ -29,6 +34,15 @@ int stack_init(int argc, const char *argv[])
 void stack_deinit(void)
 {
 	heap_free(stack_buffer);
+
+	if (ENABLE_STACK_LOG) {
+		if (stack_marker != stack_buffer) {
+			printf("stack: marker expected 0x%X, got 0x%X\n",
+			       stack_buffer, stack_marker);
+		}
+
+		printf("stack: released\n");
+	}
 
 	is_init = 0;
 }
