@@ -1,0 +1,3 @@
+FILE(REMOVE_RECURSE
+  "libTDA_fs.a"
+)

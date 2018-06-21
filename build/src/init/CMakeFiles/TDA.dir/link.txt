@@ -1,0 +1,1 @@
+/usr/bin/gcc      CMakeFiles/TDA.dir/main.c.o  -o TDA -rdynamic ../fs/libTDA_fs.a ../math/libTDA_math.a ../mm/libTDA_mm.a ../../lib/physfs/libTDA_lib_physfs.a 

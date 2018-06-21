@@ -20,7 +20,6 @@ ADD_EXECUTABLE(
 TARGET_LINK_LIBRARIES(
 	TDA
 	TDA_fs
-	TDA_hid
 	TDA_math
 	TDA_mm
 	)

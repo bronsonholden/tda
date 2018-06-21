@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/tda/mm/pool.h
+stddef.h
+-
+
+../include/tda/mm/stack.h
+stddef.h
+-
+
+/home/stu/pholden/TDA/src/mm/pool.c
+string.h
+-
+tda/mm/stack.h
+-
+tda/mm/pool.h
+-
+stdio.h
+-
+

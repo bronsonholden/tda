@@ -1,0 +1,2 @@
+/usr/bin/ar cr libTDA_fs.a  CMakeFiles/TDA_fs.dir/vfs.c.o CMakeFiles/TDA_fs.dir/file.c.o CMakeFiles/TDA_fs.dir/init.c.o
+/usr/bin/ranlib libTDA_fs.a

@@ -1,0 +1,2 @@
+/usr/bin/ar cr libTDA_math.a  CMakeFiles/TDA_math.dir/fmat4.c.o CMakeFiles/TDA_math.dir/fquat.c.o CMakeFiles/TDA_math.dir/fvec2.c.o CMakeFiles/TDA_math.dir/fvec3.c.o
+/usr/bin/ranlib libTDA_math.a

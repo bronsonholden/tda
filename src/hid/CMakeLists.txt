@@ -1,7 +1,7 @@
 IF(MSVC)
 	SET(PLATFORM_NAME "windows")
-ELSE()
-	MESSAGE(FATAL "Unsupported platform")
+ELSEIF(UNIX)
+	SET(PLATFORM_NAME "linux")
 ENDIF(MSVC)
 
 FILE(

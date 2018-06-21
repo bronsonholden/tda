@@ -1,0 +1,2 @@
+/usr/bin/ar cr libTDA_mm.a  CMakeFiles/TDA_mm.dir/mm.c.o CMakeFiles/TDA_mm.dir/stack.c.o CMakeFiles/TDA_mm.dir/heap.c.o CMakeFiles/TDA_mm.dir/pool.c.o
+/usr/bin/ranlib libTDA_mm.a

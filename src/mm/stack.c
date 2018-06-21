@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdio.h>
 #include <tda/mm/heap.h>
 #include <tda/mm/stack.h>
 

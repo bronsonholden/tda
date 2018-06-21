@@ -1,0 +1,5 @@
+/home/stu/pholden/TDA/build/src/init/CMakeFiles/TDA.dir
+/home/stu/pholden/TDA/build/src/fs/CMakeFiles/TDA_fs.dir
+/home/stu/pholden/TDA/build/lib/physfs/CMakeFiles/TDA_lib_physfs.dir
+/home/stu/pholden/TDA/build/src/math/CMakeFiles/TDA_math.dir
+/home/stu/pholden/TDA/build/src/mm/CMakeFiles/TDA_mm.dir

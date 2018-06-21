@@ -30,14 +30,14 @@ static int sector_block_count(int order);
 static int sector_block_size(int order);
 static struct pool_sector *create_pool_sector(int order);
 static void delete_pool_sector(struct pool_sector *sec);
-static void init_free_chain(struct pool_sector *sec);
-static int release_sector_block(struct pool_sector *sec, void *ptr);
-static int valid_sector_block(struct pool_sector *sec, void *ptr);
-static int free_sector_block(struct pool_sector *sec, void *ptr);
-static int prepend_to_empty_free_chain(struct pool_sector *sec, void *ptr);
-static int prepend_to_free_chain(struct pool_sector *sec, void *ptr);
-static int append_to_free_chain(struct pool_sector *sec, void *ptr);
-static void check_free_chain(struct pool_sector *sec);
+static void init(struct pool_sector *sec);
+static int release_block(struct pool_sector *sec, void *ptr);
+static int valid_block(struct pool_sector *sec, void *ptr);
+static int free_block(struct pool_sector *sec, void *ptr);
+static int prepend_empty(struct pool_sector *sec, void *ptr);
+static int prepend(struct pool_sector *sec, void *ptr);
+static int append_free(struct pool_sector *sec, void *ptr);
+static void check(struct pool_sector *sec);
 
 static struct pool_sector **sectors;
 static int                  num_sectors;
@@ -74,7 +74,7 @@ void pool_deinit(void)
 
 	for (i = 0; i < num_sectors; ++i) {
 		if (sectors[i]) {
-			check_free_chain(sectors[i]);
+			check(sectors[i]);
 			delete_pool_sector(sectors[i]);
 		}
 	}
@@ -150,7 +150,7 @@ void pool_free(void *ptr)
 	int i;
 
 	for (i = 0; i < num_sectors; ++i) {
-		if (release_sector_block(sectors[i], ptr))
+		if (release_block(sectors[i], ptr))
 			break;
 	}
 }
@@ -197,7 +197,7 @@ struct pool_sector *create_pool_sector(int order)
 	sec->block_size   = size;
 	sec->buffer       = buffer;
 
-	init_free_chain(sec);
+	init(sec);
 
 	if (ENABLE_POOL_LOG) {
 		printf("pool: created sector %2d, blocks %-6d size %-6d\n",
@@ -216,7 +216,7 @@ void delete_pool_sector(struct pool_sector *sec)
 		printf("pool: deleted sector %d\n", sec->id);
 }
 
-void init_free_chain(struct pool_sector *sec)
+void init(struct pool_sector *sec)
 {
 	int i;
 	void **ptr;
@@ -235,15 +235,15 @@ void init_free_chain(struct pool_sector *sec)
 	*ptr = 0;
 }
 
-int release_sector_block(struct pool_sector *sec, void *ptr)
+int release_block(struct pool_sector *sec, void *ptr)
 {
-	if (!valid_sector_block(sec, ptr))
+	if (!valid_block(sec, ptr))
 		return 0;
 
-	return free_sector_block(sec, ptr);
+	return free_block(sec, ptr);
 }
 
-int valid_sector_block(struct pool_sector *sec, void *ptr)
+int valid_block(struct pool_sector *sec, void *ptr)
 {
 	ptrdiff_t tmp = (ptrdiff_t)ptr - (ptrdiff_t)sec->buffer;
 	ptrdiff_t sz  = (ptrdiff_t)(sec->block_size * sec->block_count);
@@ -254,19 +254,19 @@ int valid_sector_block(struct pool_sector *sec, void *ptr)
 		return 1;
 }
 
-int free_sector_block(struct pool_sector *sec, void *ptr)
+int free_block(struct pool_sector *sec, void *ptr)
 {
 	if (!sec->front)
-		prepend_to_empty_free_chain(sec, ptr);
+		prepend_empty(sec, ptr);
 	else if (ptr < sec->front)
-		prepend_to_free_chain(sec, ptr);
+		prepend(sec, ptr);
 	else
-		append_to_free_chain(sec, ptr);
+		append_free(sec, ptr);
 
 	return 1;
 }
 
-int prepend_to_empty_free_chain(struct pool_sector *sec, void *ptr)
+int prepend_empty(struct pool_sector *sec, void *ptr)
 {
 	sec->front = ptr;
 
@@ -275,7 +275,7 @@ int prepend_to_empty_free_chain(struct pool_sector *sec, void *ptr)
 	return 1;
 }
 
-int prepend_to_free_chain(struct pool_sector *sec, void *ptr)
+int prepend(struct pool_sector *sec, void *ptr)
 {
 	*(void **)ptr = sec->front;
 
@@ -284,7 +284,7 @@ int prepend_to_free_chain(struct pool_sector *sec, void *ptr)
 	return 1;
 }
 
-int append_to_free_chain(struct pool_sector *sec, void *ptr)
+int append_free(struct pool_sector *sec, void *ptr)
 {
 	void *cur, *next;
 
@@ -299,11 +299,12 @@ int append_to_free_chain(struct pool_sector *sec, void *ptr)
 	return 1;
 }
 
-void check_free_chain(struct pool_sector *sec)
+void check(struct pool_sector *sec)
 {
+	int i;
 	void *p1, *p2;
 
-	for (int i = 0; i < sec->block_count - 1; ++i) {
+	for (i = 0; i < sec->block_count - 1; ++i) {
 		p1 = (char *)sec->buffer + sec->block_size * i;
 		p2 = (char *)p1 + sec->block_size;
 
